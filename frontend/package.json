@@ -1,0 +1,12 @@
+{
+  "name": "security-risk-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Intentionally outdated dependencies for scanner testing",
+  "dependencies": {
+    "axios": "0.21.1",
+    "lodash": "4.17.19",
+    "minimist": "1.2.0",
+    "moment": "2.29.0"
+  }
+}
