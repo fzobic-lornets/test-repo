@@ -12,17 +12,11 @@ app = Flask(__name__)
 
 API_KEY = os.environ.get("API_KEY", "demo-key")
 BROKEN = os.environ.get("BROKEN", "0") == "1"
-
 _documents = {
     1: {"id": 1, "title": "Quarterly report"},
     2: {"id": 2, "title": "Meeting notes"},
 }
 _next_id = 3
-
-
-def _require_api_key():
-    if request.headers.get("X-API-Key") != API_KEY:
-        abort(401, description="Missing or invalid API key")
 
 
 @app.get("/health")
@@ -70,13 +64,16 @@ def create_document():
 def delete_document(doc_id):
     if _documents.pop(doc_id, None) is None:
         abort(404, description="document not found")
-    return "", 204
+    return jsonify(deleted=True)
 
 
-@app.get("/api/v1/profile")
-def profile():
-    _require_api_key()
-    return jsonify(user="demo", plan="pro")
+@app.get("/api/v1/documents/<int:doc_id>/tags")
+def document_tags(doc_id):
+    if request.headers.get("X-API-Key") != API_KEY:
+        abort(401, description="Missing or invalid API key")
+    if doc_id not in _documents:
+        abort(404, description="document not found")
+    return jsonify(id=doc_id, tags=["finance", "draft"])
 
 
 if __name__ == "__main__":
