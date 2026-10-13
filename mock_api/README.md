@@ -23,8 +23,8 @@ Requires Flask (already used by this repo's `main.py`).
 | GET | `/api/v1/documents` | `{"items":[{"id","title"}],"count"}` |
 | POST | `/api/v1/documents` | body `{"title"}` → 201 |
 | GET | `/api/v1/documents/{id}` | 404 if missing |
-| DELETE | `/api/v1/documents/{id}` | 204 |
-| GET | `/api/v1/profile` | requires `X-API-Key` header |
+| GET | `/api/v1/documents/{id}/tags` | requires `X-API-Key` header |
+| DELETE | `/api/v1/documents/{id}` | `{"deleted":true}` |
 
 ## Using it with Haystack
 
